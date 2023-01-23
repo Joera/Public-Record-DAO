@@ -6,5 +6,5 @@
 
 aqua/constants.aqua
 
-**/facade/target/*
-**/artifacts/*
+**/facade/target/**
+**/artifacts/**
