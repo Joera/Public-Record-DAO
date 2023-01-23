@@ -6,13 +6,12 @@ This project was intended as a proof of concept to show it is possible to gather
 ##Architecture
 
 P2P networks are used exclusively to maximise trustlessnes.
-            
-             *(Ethereum) a layer one blockchain to store key data in cases where ownership and write permissions require transparency. 
-             *(IPFS) a content addressed storage network that ensures authenticity of data and content,
-             *(The Graph) an indexing protocol to efficiently query blockchain data,
-             *(Fluence) a programmable P2P network that can run autonomous scripts bridging between the aforementioned three P2P networks
-      
-            
+
+*(Ethereum) a layer one blockchain to store key data in cases where ownership and write permissions require transparency. 
+*(IPFS) a content addressed storage network that ensures authenticity of data and content,
+*(The Graph) an indexing protocol to efficiently query blockchain data,
+*(Fluence) a programmable P2P network that can run autonomous scripts bridging between the aforementioned three P2P networks
+               
      
 Below you may find a schematic presentation of the two scripts running on the Fluence network and the connections they make with the other P2P networks:
    
