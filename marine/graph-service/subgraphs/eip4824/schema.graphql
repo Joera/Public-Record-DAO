@@ -1,0 +1,101 @@
+type Query {
+
+    id: ID!
+    eip4824Proposal: EIP4824Proposal!
+}
+
+type EIP4824DAO @entity {
+	id: ID!
+	type: String!
+	address: String!
+	network: String!
+	chainId: String!
+	name: String
+	description: String
+	membersURI: String
+	proposalsURI: String
+	activityLogURI: String
+	governanceURI: String
+	proposals: [EIP4824Proposal!] @derivedFrom(field: "dao")
+}
+
+type EIP4824Proposal @entity {
+	id: ID!
+	type: String!
+	name: String
+	dao: EIP4824DAO
+	status: EIP4824ProposalStatus 
+	proposer: EIP4824Member
+	contentText: String
+	startBlock: Int
+	endBlock: Int
+	activity: [EIP4824Activity!] @derivedFrom(field: "proposal")
+}
+
+type EIP4824ProposalStatus @entity {
+	id: ID!
+	type: String
+	canceled: Boolean
+	queued: Boolean
+	executed: Boolean
+	proposal: EIP4824Proposal
+}
+
+type EIP4824Member @entity {
+	id: ID!
+	address: String!
+	type: String
+	role: String
+	proposal: EIP4824Proposal
+}
+
+type EIP4824Activity @entity {
+	id: ID!
+	interactionType: String
+	voter: String!
+	timestamp: Int
+	transaction: String
+	support: EIP4824Support 
+	weight: EIP4824Weight 
+	proposal: EIP4824Proposal 
+}
+
+type EIP4824Support @entity {
+	id: ID!
+	type: String
+	value: Int
+	activity: EIP4824Activity
+
+}
+
+type EIP4824Weight @entity {
+	id: ID!
+	type: String
+	value: Int
+	activity: EIP4824Activity
+}
+
+type PRDaoEvent @entity {
+	id: ID!
+	type: String
+	transaction: String
+	timestamp: Int
+}
+
+
+type Account @entity {
+	id: ID!
+}
+
+interface Event {
+	id: ID!
+	transaction: Transaction!
+	emitter: Account!
+	timestamp: Int!
+}
+type Transaction @entity {
+	id: ID!
+	timestamp: Int!
+	blockNumber: Int!
+	events: [Event!]! @derivedFrom(field: "transaction")
+}

@@ -1,0 +1,16 @@
+[package]
+name = "elasticsearch_adapter"
+version = "0.0.1"
+authors = ["JRM"]
+edition = "2018"
+publish = false
+
+[[bin]]
+path = "src/main.rs"
+name = "elasticsearch_adapter"
+
+[dependencies]
+marine-rs-sdk = { version = "=0.6.10", features = ["logger"]}
+log = "0.4.8"
+chrono = "0.4.19"
+serde_json = "1.0.64"

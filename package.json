@@ -1,0 +1,19 @@
+{
+  "name": "public-record.dao",
+  "version": "1.0.0",
+  "description": "decentralized aggregator for blockchain data",
+  "main": "",
+  "scripts": {
+    "deploy_signer": "aqua run --sk xxx --addr /ip4/xxx/tcp/9990/ws/p2p/xxx -i -aqua-scripts/signer.aqua -f 'deploy_dev()'",
+    "redeploy_signer": "aqua run --sk xxx --addr /ip4/xxx/tcp/9990/ws/p2p/xxx -i aqua-scripts/signer.aqua -f 'redeploy(\"xxx\",\"xxx8\")'",
+    "deploy_with_secret": "aqua run --sk xxx --addr /ip4/xxx/tcp/9990/ws/p2p/xxx -i aqua-scripts/signer.aqua -f 'deploy_with_secret(\"xxx\")'",
+    "start": "aqua run --sk xxx --addr /ip4/xxx/tcp/9990/ws/p2p/xxx -i aqua-scripts/interval.aqua -f 'start_filter()' --timeout 30000",
+    "compile": "aqua -i aqua-scripts -o air-scripts --air --no-xor --no-relay",
+    "scripts": "aqua run --sk xxx --addr /ip4/xxx/tcp/9990/ws/p2p/xxx -i ./aqua-scripts/maintenance.aqua -f 'list_scripts()'",
+    "services": "aqua run --sk xxx --addr /ip4/xxx/tcp/9990/ws/p2p/xxx -i ./aqua-scripts/maintenance.aqua -f 'list_services()'",
+    "clear_scripts": "aqua run --sk xxx --addr /ip4/xxx/tcp/9990/ws/p2p/xxx -i aqua-scripts/maintenance.aqua -f 'clear_scripts()'",
+    "clear_services": "aqua run --sk xxx --addr /ip4/xxx/tcp/9990/ws/p2p/xxx -i aqua-scripts/maintenance.aqua -f 'clear_services()'"
+  },
+  "author": "",
+  "license": "ISC"
+}

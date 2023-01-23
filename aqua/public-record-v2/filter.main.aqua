@@ -1,0 +1,64 @@
+import "../environments/constants.aqua"
+import "./prdao.constants.aqua"
+import "./prdao.products.aqua"
+import "./prdao.interfaces.aqua"
+import "../fluencelabs/builtin.aqua"
+import "../fluencelabs/math.aqua"
+import "../maintenance/scripts.aqua"
+
+func filter_main(srv_ids: []string ) -> string :
+
+  version = "0.0.1"
+  result: *string
+  signed_tx_requests: *string
+  done: *string
+  jobs_with_filters: *Job
+
+  on HOST_PEER_ID:
+
+    LogService srv_ids!
+    LogService.logger(version, ELASTICSEARCH_URL)
+    
+    -- SubscriptionService srv_ids[1]
+    -- EventFilterService srv_ids[2]
+    
+    -- jobs <- SubscriptionService.getAll(RINKEBY_PROVIDER, REMOTE_IPFS_PEER_HTTP, ELASTICSEARCH_URL)
+
+    -- if jobs != nil:
+
+    --   for job <- jobs:
+
+    --     jobs_with_filters  <- EventFilterService.new(job) 
+
+    --   for i <- [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]: 
+
+    --     for job <- jobs_with_filters:
+
+    --       jobs_with_work <- EventFilterService.poll(job)
+
+    --       if jobs_with_work != nil:
+        
+    --         for work <- jobs_with_work:
+
+    --           LogService.logger(work.item,ELASTICSEARCH_URL)
+
+    --           -- use registry to find coopetative nodes
+    --           on KRASNODAR_3:
+
+    --             QueueService QUEUESERVICEID
+    --             QueueService.add(work)
+
+    --             -- run script on remote node from ipfs CID 
+    --             -- script_once(JOBSCRIPTV1,KRASNODAR_3) 
+
+    --     LogService.int(i,ELASTICSEARCH_URL)
+    --     done <- Peer.timeout(30000,"starting next loop")
+    
+    --   result <<- "finished"
+
+    -- else:
+    --   result <<- "nothing to do"
+
+  result <<- "debug"
+
+  <- result!

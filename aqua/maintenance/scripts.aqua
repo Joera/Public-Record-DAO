@@ -1,0 +1,115 @@
+import "../environments/constants.aqua"
+import "../fluencelabs/ipfs.aqua"
+import "../fluencelabs/builtin.aqua"
+import "../services/deploy_config.aqua"
+import "../services/create.aqua"
+import "../services/types.aqua"
+import "../public-record/prdao.interfaces.aqua"
+
+
+func script_deploy(air_cid: string, seconds: u64, node: string) -> string : 
+
+    on node: 
+
+        air <- Ipfs.get_from(air_cid, REMOTE_IPFS_PEER)
+
+        config_srv_id  <- deploy_config_service(CONFIG_SRV, REMOTE_IPFS_PEER)
+
+        fs_service_id <- create_service_weird("prdao_fs_service", config_srv_id)
+        FsService fs_service_id
+
+        script <- FsService.read_file(air.path)
+
+        interval: ?u64
+        interval <<- seconds    
+        res <- Script.add(script, interval) 
+
+        Srv.remove(config_srv_id)
+        Srv.remove(fs_service_id)
+
+    <- res
+
+func script_once(air_cid: string, node: string) -> string : 
+
+
+    on node:
+
+        air <- Ipfs.get_from(air_cid, REMOTE_IPFS_PEER)
+
+        config_srv_id <- deploy_config_service(CONFIG_SRV, REMOTE_IPFS_PEER)
+
+        fs_service_id <- create_service("prdao_fs_service", config_srv_id)
+        FsService fs_service_id
+
+        script <- FsService.read_file(air.path)
+
+        res <- Script.add(script, nil) 
+
+        Srv.remove(config_srv_id)
+        Srv.remove(fs_service_id)
+
+    <- res
+
+func start_public_record(node: string) -> string: 
+
+    on node:
+
+        res1 <- script_deploy(FILTERV2_POLL_SCRIPT_KRAS, 120, node)
+
+    <- res1
+
+    -- fs service to read local file  with SCRIPT CID
+    -- pass cis and time through ts and a .env file
+
+func start_filter(node: string, seconds: u64) -> string: 
+
+    on node:
+
+        res1 <- script_deploy(FILTERV2_NEW_SCRIPT_KRAS, seconds, node) 
+
+    <- res1
+
+func stop(service_id: string, node: string) -> bool : 
+
+    on node:
+
+        res <- Script.remove(service_id) 
+
+    <- res
+
+func deploy(node: string, script_cid: string, interval: u64) -> string :
+
+    on node: 
+
+        res <- script_deploy(script_cid, interval, node)
+
+    <- res
+
+
+
+func remove_owned(owner_id: string, node: string) -> *string :
+
+    removed_scripts: *string
+
+    on node: 
+
+        scriptList <- Script.list()
+
+        for s <- scriptList:
+            
+            if s.owner == owner_id:        
+                success <- Script.remove(s.id)
+                if success:
+                    removed_scripts <<- s.id
+
+        
+    <- removed_scripts
+
+func clean_node(node: string) -> string: 
+
+    on node:
+
+        res1 <- script_once(CLEAN, node) 
+
+    <- res1 
+

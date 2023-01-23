@@ -1,0 +1,13 @@
+/home/joera/Documents/chronicles/fluence/public-record/html-service/facade/target/wasm32-wasi/release/deps/prdao_shared-30f5e6cf1cee870a.rmeta: /home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/lib.rs /home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/adapters.rs /home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/types.rs /home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/mock.rs /home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/ipfs.rs /home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/requests.rs /home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/eth_utils.rs
+
+/home/joera/Documents/chronicles/fluence/public-record/html-service/facade/target/wasm32-wasi/release/deps/libprdao_shared-30f5e6cf1cee870a.rlib: /home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/lib.rs /home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/adapters.rs /home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/types.rs /home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/mock.rs /home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/ipfs.rs /home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/requests.rs /home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/eth_utils.rs
+
+/home/joera/Documents/chronicles/fluence/public-record/html-service/facade/target/wasm32-wasi/release/deps/prdao_shared-30f5e6cf1cee870a.d: /home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/lib.rs /home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/adapters.rs /home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/types.rs /home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/mock.rs /home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/ipfs.rs /home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/requests.rs /home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/eth_utils.rs
+
+/home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/lib.rs:
+/home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/adapters.rs:
+/home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/types.rs:
+/home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/mock.rs:
+/home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/ipfs.rs:
+/home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/requests.rs:
+/home/joera/Documents/chronicles/fluence/public-record/_prdao_shared/src/eth_utils.rs:

@@ -1,0 +1,99 @@
+import "./types.aqua"
+import "../fluencelabs/builtin.aqua"
+import "../fluencelabs/ipfs.aqua"
+-- import "process_files.aqua"
+
+
+alias PeerId : string
+alias CID : string
+alias Multiaddr : string
+alias Hash : string
+alias ServiceID : string  
+
+service Pair("op"):
+    -- function that wraps two strings in an array
+    array(s1: string, s2: string) -> []string
+
+service One("op"):
+    -- function that wraps two strings in an array
+    array(s: string) -> []string
+
+service Nester("op"):
+    -- function that wraps an array of strings in an array
+    array(s: []string) -> [][]string
+
+-- service Adapter("op"):
+--     create(s1: string, s2: string, s3: u32, s4: bool, s5: bool) -> AdapterConfig
+
+func add_adapter(adapterConfig: AdapterConfig, ipfs: Multiaddr) -> Hash: 
+
+    get_result <- Ipfs.get_from(adapterConfig.cid, ipfs) 
+    mem_page_count: ?u32
+    mem_page_count <<- adapterConfig.mem_page_count
+    mounted_binaries: ?Pairs
+
+    if adapterConfig.curl_binary == true:
+        curl <- Pair.array("curl", "/usr/bin/curl")
+        mounted_binaries_array <- Nester.array(curl)
+        mounted_binaries <<- mounted_binaries_array
+     
+    config <- Dist.make_module_config(adapterConfig.name, mem_page_count, nil, nil, nil, nil, nil, mounted_binaries, nil)      
+
+    module_hash <- Dist.add_module_from_vault(get_result.path, config)
+    <- module_hash
+
+-- Add module to node
+func add_module(name: string, path: string) -> Hash:
+    config <- Dist.default_module_config(name)
+    module_hash <- Dist.add_module_from_vault(path, config)
+    <- module_hash
+
+-- Add service blueprint to node
+func add_blueprint(serviceName: string, modules: *string, adapters: *AdapterConfig, ipfs: Multiaddr) -> string:
+    
+    dependencies: *string
+
+    for adapterConfig <- adapters:
+        adapter <- add_adapter(adapterConfig, ipfs)
+        dependency <- Op.concat_strings("hash:", adapter)
+        dependencies <<- dependency
+
+    for m <- modules:
+        prefixed_hash <- Op.concat_strings("hash:", m)
+        dependencies <<- prefixed_hash
+
+    blueprint <- Dist.make_blueprint(serviceName, dependencies)
+    blueprint_id <- Dist.add_blueprint(blueprint)
+
+    <- blueprint_id
+
+-- Download single .wasm module from IPFS and create a service from it
+func deploy_service(relay: string, facade_cid: string, adapters: *AdapterConfig, ipfs: Multiaddr, module_name: string, service_name: string) -> string:
+    service_ids: *string
+    modules: *string
+    ipfs_results: *IpfsGetResult
+    service_id: *string
+    
+    on relay:
+
+        get_result <- Ipfs.get_from(facade_cid, ipfs)   
+
+        ipfs_results <<- get_result
+
+        if get_result.path == "":      
+            service_id <<- "0"
+        else:      
+            if get_result.success:
+                modules <- add_module(module_name, get_result.path)
+                blueprint_id <- add_blueprint(service_name, modules, adapters, ipfs)
+                service_id <- Srv.create(blueprint_id)
+            else:
+                service_id <<- "0x"
+                  
+    <- service_id!
+
+
+func remove_service(relay: PeerId, service_id: ServiceID) -> bool:
+    on relay:
+        Srv.remove(service_id)
+    <- true

@@ -1,0 +1,80 @@
+import "../fluencelabs/builtin.aqua"
+import "../services/process.aqua"
+import "../fluencelabs/ipfs.aqua"
+import "../environments/constants.aqua"
+
+
+func list_services(node: string) -> []Service : 
+
+    on node: 
+
+        list <- Srv.list()
+
+    <- list
+
+
+func service_info(id: string, node: string) -> Interface: 
+
+    on node:
+
+        info <- Srv.get_interface(id) 
+
+    <- info 
+
+func list_scripts(node: string) -> []ScriptInfo : 
+
+    on node: 
+
+        list <- Script.list()
+
+    <- list
+
+func clear_scripts(owner_id: string, node: string) -> *string : 
+
+    removed_scripts : *string
+  --  succes: bool
+
+
+    on node:
+
+        scriptList <- Script.list()
+
+        for s <- scriptList:
+            
+            if s.owner == owner_id:        
+                success <- Script.remove(s.id)
+                if success:
+                    removed_scripts <<- s.id
+
+    <- removed_scripts
+
+
+    -- wanneer ik deze draai ben ik niet de node die in het script de services creeert ... 
+    -- ik haal dus eigenlijk alleen de signer weg 
+func clear_services(owner_id: string, node: string) -> *string : 
+
+    removed_services : *string
+
+    on node: 
+
+        srvList <- Srv.list()
+
+        for s <- srvList:
+            if s.owner_id == owner_id:
+                if s.id != KRAS2_SIGNER_SERVICE_ID:
+                    if s.id != KRAS3_SIGNER_SERVICE_ID:
+                        if s.id != QUEUESERVICEID:
+                            Srv.remove(s.id)
+                            removed_services <<- s.id
+
+    <- removed_services
+
+
+func list_blueprints(node: string) -> []Blueprint: 
+
+    on node: 
+
+        list <- Dist.list_blueprints()
+
+    <- list
+    

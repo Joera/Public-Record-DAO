@@ -1,0 +1,19 @@
+
+import Op from "../aqua/fluencelabs/builtin.aqua"
+
+
+
+service Console("run-console"):
+    print(val: i64)
+
+func test2(key1: *u32) -> *i64:
+    <- key1
+
+func test():
+    key1: *u32 
+    key1 <<- 1
+    key2: *u32 
+    key2 <<- 2
+    key3 <- test2(key2)
+    Console.print(key3!)
+    

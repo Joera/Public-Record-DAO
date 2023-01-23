@@ -1,0 +1,14 @@
+import "../environments/constants.aqua"
+import "../services/deploy_config.aqua"
+import "../services/create.aqua"
+
+func init(array: []string) -> *string: 
+
+  ids: *string
+
+  config_srv_id <- deploy_config_service(CONFIG_SRV, REMOTE_IPFS_PEER)
+
+  for srv_name <- array:
+    ids <- create_service(srv_name, config_srv_id)
+    
+  <- ids

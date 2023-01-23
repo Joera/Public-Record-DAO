@@ -1,0 +1,1 @@
+/home/joera/Documents/chronicles/fluence/public-record/test-service/facade/target/wasm32-wasi/release/facade.wasm: /home/joera/Documents/chronicles/fluence/public-record/test-service/facade/src/main.rs

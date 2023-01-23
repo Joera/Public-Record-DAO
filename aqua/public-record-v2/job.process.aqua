@@ -1,0 +1,23 @@
+import "../environments/constants.aqua"
+import "./prdao.constants.aqua"
+import "./prdao.products.aqua"
+import "./prdao.interfaces.aqua"
+
+func job_process(srv_ids: []string, jobs: *Job, signer: string) -> string :
+
+  on HOST_PEER_ID:
+
+    EnsService srv_ids[4]
+    IpldService srv_ids[7]
+    DnsService srv_ids[8]
+    SignerService signer
+
+    current_head <- EnsService.get_record(RINKEBY_PROVIDER, IPLD_DOMAIN, IPLD_HEAD_KEY, ELASTICSEARCH_URL)
+    -- new_head <- IpldService.update(current_head, jobs, ELASTICSEARCH_URL, REMOTE_IPFS_PEER_HTTP)
+    -- resp <- DnsService.update(DNS_RECORD, new_head)
+             
+    -- tx_request <- EnsService.prepare_request(RINKEBY_PROVIDER, SENDER, IPLD_DOMAIN, IPLD_HEAD_KEY, new_head, ELASTICSEARCH_URL)
+    -- signed_tx_request <- SignerService.sign_tx(tx_request, RINKEBY_CHAIN_ID)
+    -- result <- EnsService.make_request(RINKEBY_PROVIDER, signed_tx_request, ELASTICSEARCH_URL)
+
+  <- current_head 

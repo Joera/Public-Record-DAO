@@ -1,0 +1,40 @@
+import "../environments/constants.aqua"
+import "./prdao.products.aqua"
+import "./prdao.interfaces.aqua"
+import "./prdao.constants.aqua"
+import "../fluencelabs/builtin.aqua"
+
+import "./job.collect.aqua"
+import "./job.process.aqua"
+
+func job_main(srv_ids: []string ) -> string :
+
+  version = "0.0.3"
+  result: *string
+  jobs2: *Job
+  signer = KRAS3_SIGNER_SERVICE_ID
+
+  on HOST_PEER_ID:
+
+    LogService srv_ids!
+    LogService.logger(version, ELASTICSEARCH_URL)
+
+    QueueService QUEUESERVICEID
+    jobs <- QueueService.get()
+
+    for job <- jobs: 
+
+        jobs2 <- job_collect(srv_ids, job)   
+                
+    if jobs2 != nil: 
+
+        try: 
+            new_head <- job_process(srv_ids, jobs, signer)
+            result <- Op.concat_strings("new head @ ", new_head)
+        catch e: 
+            result <<- "process error"
+
+    else:
+        result <<- "nothing to do"
+
+  <- result!

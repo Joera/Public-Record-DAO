@@ -1,0 +1,20 @@
+import "../environments/constants.aqua"
+import "./prdao.constants.aqua"
+import "./prdao.products.aqua"
+import "./prdao.interfaces.aqua"
+
+func job_collect(srv_ids: []string, job: Job) -> Job: 
+
+  on HOST_PEER_ID: 
+
+    EnsService srv_ids[1]
+    GraphService srv_ids[2]
+    HtmlService srv_ids[3]
+
+    id = "36740473131365824476245680915058832117361047026633901414203288508692049689411"
+
+    o1 <- GraphService.get(id, job.data_model, job.subscription, ELASTICSEARCH_URL, REMOTE_IPFS_PEER_HTTP) 
+    template_cid <- EnsService.get_record(RINKEBY_PROVIDER, WIDGET_DOMAIN, WIDGET_VERSION, ELASTICSEARCH_URL)
+    o2 <- HtmlService.render(o1, template_cid, ELASTICSEARCH_URL, REMOTE_IPFS_PEER_HTTP)
+
+  <- o2

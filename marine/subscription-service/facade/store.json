@@ -1,0 +1,103 @@
+[
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_uri",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "_contract",
+          "type": "address"
+        },
+        {
+          "internalType": "string[]",
+          "name": "_topics",
+          "type": "string[]"
+        },
+        {
+          "internalType": "string",
+          "name": "_subgraph",
+          "type": "string"
+        }
+      ],
+      "name": "create",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "key",
+          "type": "uint256"
+        }
+      ],
+      "name": "get",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "string",
+              "name": "id",
+              "type": "string"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "string",
+                  "name": "name",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "uri",
+                  "type": "string"
+                }
+              ],
+              "internalType": "struct Contact",
+              "name": "contact",
+              "type": "tuple"
+            },
+            {
+              "internalType": "address",
+              "name": "dao_contract",
+              "type": "address"
+            },
+            {
+              "internalType": "string[]",
+              "name": "topics",
+              "type": "string[]"
+            },
+            {
+              "internalType": "string",
+              "name": "widget_version",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "subgraph",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "data_type",
+              "type": "string"
+            }
+          ],
+          "internalType": "struct Subscription",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]

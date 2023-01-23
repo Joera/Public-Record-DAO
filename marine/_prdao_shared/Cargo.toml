@@ -1,0 +1,19 @@
+[package]
+name = "prdao_shared"
+version = "0.1.0"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+serde = { version = "1.0.118", features = ["derive"] }
+serde_json = "1.0.64"
+marine-rs-sdk = { version = "0.6.15", features = ["logger"] }
+cid = "0.7.0"
+tempfile = "3.2.0"
+ethers-core = { git = "https://github.com/Joera/ethers-core-0.1.3" }
+hex = "0.4.3"
+hex-literal = "0.3.3"
+ethabi = "14.1.0"
+
+

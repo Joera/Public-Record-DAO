@@ -1,0 +1,1 @@
+/home/joera/Documents/chronicles/fluence/fluence-administrator/aqua/patterns/scripts/create-service/hello-service/facade/target/wasm32-wasi/release/facade.wasm: /home/joera/Documents/chronicles/fluence/fluence-administrator/aqua/patterns/scripts/create-service/hello-service/facade/src/main.rs

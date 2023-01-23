@@ -1,0 +1,28 @@
+import ELASTICSEARCH_URL from "../environments/constants.aqua"
+import "../services/script.init.aqua"
+import Srv, Peer from "../fluencelabs/builtin.aqua"
+import LogService from "../public-record/prdao.interfaces.aqua"
+import "./hopper.main.aqua"
+import "./hopper.hop.aqua"
+
+func hopper_wrapper():
+
+  array = ["prdao_log_service"]
+  srv_ids: *[]string
+
+  on HOST_PEER_ID:
+
+    status: ?string
+    srv_ids <- init(array)
+    
+    status <- hopper_main(srv_ids!)
+    
+    par status <- hopper_hop(srv_ids!)
+
+    LogService srv_ids!!
+    LogService.logger(status!, ELASTICSEARCH_URL)
+
+    srvList <- Srv.list()
+    for s <- srvList:  
+        if s.owner_id == HOST_PEER_ID:
+          Srv.remove(s.id) 

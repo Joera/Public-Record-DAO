@@ -1,0 +1,11 @@
+/home/joera/Documents/chronicles/fluence/public-record/html-service/facade/target/wasm32-wasi/release/deps/multibase-f50acddc7125f340.rmeta: /home/joera/.cargo/registry/src/github.com-1ecc6299db9ec823/multibase-0.8.0/src/lib.rs /home/joera/.cargo/registry/src/github.com-1ecc6299db9ec823/multibase-0.8.0/src/base.rs /home/joera/.cargo/registry/src/github.com-1ecc6299db9ec823/multibase-0.8.0/src/encoding.rs /home/joera/.cargo/registry/src/github.com-1ecc6299db9ec823/multibase-0.8.0/src/error.rs /home/joera/.cargo/registry/src/github.com-1ecc6299db9ec823/multibase-0.8.0/src/impls.rs
+
+/home/joera/Documents/chronicles/fluence/public-record/html-service/facade/target/wasm32-wasi/release/deps/libmultibase-f50acddc7125f340.rlib: /home/joera/.cargo/registry/src/github.com-1ecc6299db9ec823/multibase-0.8.0/src/lib.rs /home/joera/.cargo/registry/src/github.com-1ecc6299db9ec823/multibase-0.8.0/src/base.rs /home/joera/.cargo/registry/src/github.com-1ecc6299db9ec823/multibase-0.8.0/src/encoding.rs /home/joera/.cargo/registry/src/github.com-1ecc6299db9ec823/multibase-0.8.0/src/error.rs /home/joera/.cargo/registry/src/github.com-1ecc6299db9ec823/multibase-0.8.0/src/impls.rs
+
+/home/joera/Documents/chronicles/fluence/public-record/html-service/facade/target/wasm32-wasi/release/deps/multibase-f50acddc7125f340.d: /home/joera/.cargo/registry/src/github.com-1ecc6299db9ec823/multibase-0.8.0/src/lib.rs /home/joera/.cargo/registry/src/github.com-1ecc6299db9ec823/multibase-0.8.0/src/base.rs /home/joera/.cargo/registry/src/github.com-1ecc6299db9ec823/multibase-0.8.0/src/encoding.rs /home/joera/.cargo/registry/src/github.com-1ecc6299db9ec823/multibase-0.8.0/src/error.rs /home/joera/.cargo/registry/src/github.com-1ecc6299db9ec823/multibase-0.8.0/src/impls.rs
+
+/home/joera/.cargo/registry/src/github.com-1ecc6299db9ec823/multibase-0.8.0/src/lib.rs:
+/home/joera/.cargo/registry/src/github.com-1ecc6299db9ec823/multibase-0.8.0/src/base.rs:
+/home/joera/.cargo/registry/src/github.com-1ecc6299db9ec823/multibase-0.8.0/src/encoding.rs:
+/home/joera/.cargo/registry/src/github.com-1ecc6299db9ec823/multibase-0.8.0/src/error.rs:
+/home/joera/.cargo/registry/src/github.com-1ecc6299db9ec823/multibase-0.8.0/src/impls.rs:

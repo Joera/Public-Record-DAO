@@ -1,0 +1,23 @@
+data AdapterConfig:
+    name : string
+    cid : string
+    mem_page_count: u32
+    logger_enabled: bool
+    curl_binary: bool 
+
+data ServiceConfig:
+    adapters: *AdapterConfig
+    cid : string
+    facade_name: string
+    name : string
+
+data JsonRpcResult:
+    jsonrpc: string
+    result: string
+    error: string
+    id: u64
+
+data LastError:  
+    instruction: string -- What AIR instruction failed  
+    msg: string -- Human-readable error message  
+    peer_id: string -- On what peer the error happened

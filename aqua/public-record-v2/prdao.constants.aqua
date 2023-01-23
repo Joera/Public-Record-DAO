@@ -1,0 +1,24 @@
+const RINKEBY_CHAIN_ID = 4
+const FILTER_DOMAIN = "filters.public-record.eth" 
+const IPLD_DOMAIN = "ipld.public-record.eth"
+const IPLD_HEAD_KEY = "ipld_tip_v2"
+const DNS_RECORD = "301135748"
+
+const CONTRACT_NETWORK_PROVIDER = "https://eth-goerli.alchemyapi.io/v2/Btuj6CK5zkBBtMDVJXM7zTa4RrC6hvCP"
+-- const CONTRACT = "0xf05f5bAB0984c22E0fc0c8875c51176Ec98D624e"
+-- const TOPICS = "0x9a2e42fd6722813d69113e7d0079d3d940171428df7373df9c7f7617cfda2892"
+-- const FILTER_ID_KEY = "electionator_filter_id"
+-- const IPLD_TIP_KEY = "ipld_tip"
+
+-- const CONTRACT_NETWORK_PROVIDER = "https://polygon-mainnet.g.alchemy.com/v2/QW8dFn1iLesQWMYoD2pEwaNz8HHC-y7X"
+-- const CONTRACT = "0x9Eccc6ED6a77F3cD1dfBC7Ec61A5325254cC6396"
+-- const TOPIC = "0x9dcff9d94fbfdb4622d11edb383005f95e78efb446c72d92f8e615c6025c4703"
+-- const FILTER_ID_KEY = "aragon-vote-creation_polygon_filter_id"
+-- const IPLD_TIP_KEY = "ipld_tip_aragon_votes_polygon"
+
+
+const IPLD_TIP_KEY = "ipld_tip_aragon_votes"
+
+const WIDGET_DOMAIN = "widgets.public-record.eth"
+const WIDGET_VERSION = "prdao_votes_single"
+

@@ -1,0 +1,26 @@
+import Srv, Dist, Script, Blueprint from "@fluencelabs/aqua-lib/builtin"
+import  "@fluencelabs/aqua-ipfs/ipfs"
+import add_curl_adapter, add_facade_module from "./helpers"
+
+const REMOTE_IPFS_PEER = "/ip4/64.227.70.116/tcp/5001"
+
+-- deploy script that creates a service 
+
+func create_service():
+
+    mod_hashes: *string
+    service_name = "hello_service"
+
+    on HOST_PEER_ID:
+
+      mod_hashes <- add_facade_module(CID, service_name)
+  --    mod_hashes <- add_curl_adapter()
+      blueprint <- Dist.make_blueprint(service_name, mod_hashes)
+      blueprint_id <- Dist.add_blueprint(blueprint)
+      service_id <- Srv.create(blueprint_id)
+
+func deploy_script(air_cid: string):
+
+    air <- Ipfs.get_from(air_cid, REMOTE_IPFS_PEER)
+    script <- FsService.read_file(air.path)
+    Script.add(script, nil) 

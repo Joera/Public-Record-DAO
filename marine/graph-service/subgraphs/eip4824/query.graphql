@@ -1,0 +1,39 @@
+query GraphView($id: String!) {
+  eip4824Proposal(id:$id) {
+    id
+    type
+    name
+    dao {
+      address
+     network
+      chainId
+      name
+    }
+    status {
+      type
+      canceled
+      queued 
+      executed
+    }
+    proposer {
+      id 
+      address
+    }
+    startBlock
+    endBlock
+    activity( orderBy:timestamp, orderDirection: desc) {
+      	id
+      	timestamp
+      	transaction
+      	voter 
+      	support {
+          type
+          value
+        }
+      	weight {
+          type
+          value
+        }
+    }  
+  }
+}

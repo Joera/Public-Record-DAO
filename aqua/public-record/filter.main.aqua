@@ -1,0 +1,52 @@
+import "../environments/constants.aqua"
+import "./prdao.constants.aqua"
+import "./prdao.products.aqua"
+import "./prdao.interfaces.aqua"
+import "../fluencelabs/builtin.aqua"
+import "../fluencelabs/math.aqua"
+
+func filter_main(srv_ids: []string ) -> string :
+
+  version = "0.0.1"
+  result: *string
+  signer = KRAS2_SIGNER_SERVICE_ID
+  signed_tx_requests: *string
+
+  on HOST_PEER_ID:
+
+    SignerService signer
+
+    LogService srv_ids!
+    LogService.logger(version, ELASTICSEARCH_URL)
+    
+    SubscriptionService srv_ids[1]
+    EventFilterService srv_ids[2]
+    EnsService srv_ids[3]
+
+    subs <- SubscriptionService.getAll(RINKEBY_PROVIDER, REMOTE_IPFS_PEER_HTTP, ELASTICSEARCH_URL)
+
+    if subs != nil:
+
+   --   tx_count <- EnsService.get_tx_count(SENDER, RINKEBY_PROVIDER, ELASTICSEARCH_URL)
+    --  i = 1
+
+      for sub <- subs: 
+
+        -- count <- Math.add(tx_count,i)
+          
+        filter_id  <- EventFilterService.new(sub, CONTRACT_NETWORK_PROVIDER, ELASTICSEARCH_URL)
+    
+        tx_request <- EnsService.prepare_request(RINKEBY_PROVIDER, SENDER, FILTER_DOMAIN, sub.name, filter_id, ELASTICSEARCH_URL)
+        signed_tx_requests <- SignerService.sign_tx(tx_request, RINKEBY_CHAIN_ID)
+
+      --  i <- Math.add(i,1)
+          
+    else:
+      result <<- "nothing to do"
+
+    if signed_tx_requests != nil:
+
+      jsonRpcResult <- EnsService.make_batch_request(signed_tx_requests, RINKEBY_PROVIDER, ELASTICSEARCH_URL)
+      result <<- jsonRpcResult.result
+
+  <- result!

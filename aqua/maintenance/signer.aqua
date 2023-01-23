@@ -1,0 +1,69 @@
+import "../environments/constants.aqua"
+import "../services/types.aqua"
+import "../fluencelabs/builtin.aqua"
+import "../services/process.aqua"
+import "../fluencelabs/ipfs.aqua"
+import "../services/deploy_config.aqua"
+import "../services/create.aqua"
+import "../services/types.aqua"
+import "../public-record/prdao.interfaces.aqua"
+
+
+func signer_deploy(node: string) -> string, string:
+
+    on node:
+
+        signer_service_id <- create_service("prdao_signer_service", node)
+        SignerService signer_service_id
+
+        address <- SignerService.initiate()
+            
+    <- address, signer_service_id
+
+func signer_deploy_dev(node: string) -> string, string, string:
+
+    on node:
+
+        signer_service_id <- create_service("prdao_signer_service", node)
+        SignerService signer_service_id
+
+        address <- SignerService.initiate_dev()
+            
+    <- address!, signer_service_id, address!1
+
+-- when node has been restarted and you want to restart service with same private key 
+func signer_redeploy(signer_service_id: string, secret: string, node: string) -> string:
+
+    on node:
+
+        if signer_service_id != "0":
+
+            SignerService signer_service_id
+            address <- SignerService.from_secret(secret)
+            
+    <- address!
+
+func signer_deploy_with_secret(secret: string, node: string) -> string, string:
+
+    on node:
+
+        config_service_id <- deploy_config_service(CONFIG_SRV, REMOTE_IPFS_PEER)
+        signer_service_id <- create_service("prdao_signer_service", config_service_id)
+ 
+        SignerService signer_service_id
+
+        address <- SignerService.from_secret(secret)
+            
+    <- address!, signer_service_id
+
+func signer_with_init_peer(pk: string, node:string) -> string:
+
+    on node: 
+    
+        signer_service_id <- create_service("prdao_signer_service", node)
+        SignerService signer_service_id
+
+        -- address <- SignerService.from_secret(secret)
+        -- success <- SignerService.init_with_peer(pk)
+
+    <- signer_service_id 

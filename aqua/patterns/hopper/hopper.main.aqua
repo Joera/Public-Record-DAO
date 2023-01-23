@@ -1,0 +1,16 @@
+import ELASTICSEARCH_URL from "../environments/constants.aqua"
+import LogService from "../public-record/prdao.interfaces.aqua"
+
+func hopper_main(srv_ids: []string ) -> string :
+
+  version = "0.0.1"
+  result: *string
+
+  on HOST_PEER_ID:
+
+    LogService srv_ids!
+    LogService.logger(version, ELASTICSEARCH_URL)
+
+    result <<- "service completed"
+
+  <- result!

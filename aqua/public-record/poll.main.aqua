@@ -1,0 +1,47 @@
+import "../environments/constants.aqua"
+import "./prdao.products.aqua"
+import "./prdao.interfaces.aqua"
+import "../fluencelabs/builtin.aqua"
+
+import "./poll.poll.aqua"
+import "./poll.collect.aqua"
+import "./poll.process.aqua"
+
+func poll_main(srv_ids: []string ) -> string :
+
+  version = "0.0.3"
+  result: *string
+  process_objects: *IpldObject
+  signer = KRAS3_SIGNER_SERVICE_ID
+
+  on HOST_PEER_ID:
+
+    LogService srv_ids!
+    LogService.logger(version, ELASTICSEARCH_URL)
+
+    DataModelService srv_ids[1]
+    data_model <- DataModelService.get(0, ELASTICSEARCH_URL) 
+    
+    SubscriptionService srv_ids[2]
+    subs <- SubscriptionService.getAll(RINKEBY_PROVIDER, REMOTE_IPFS_PEER_HTTP, ELASTICSEARCH_URL)
+
+    for sub <- subs: 
+        events <- poll_poll(sub,srv_ids)
+
+        if events != nil:
+            Peer.timeout(10000, "timeout")
+            for event_id <- events:   
+                process_objects <- poll_collect(srv_ids, event_id, data_model, sub)
+
+    if process_objects != nil: 
+
+        try: 
+            new_head <- poll_process(srv_ids, process_objects, signer)
+            result <- Op.concat_strings("new head @ ", new_head)
+        catch e: 
+            result <<- "process error"
+
+    else:
+        result <<- "nothing to do"
+
+  <- result!

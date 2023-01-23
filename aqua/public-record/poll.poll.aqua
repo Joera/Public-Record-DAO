@@ -1,0 +1,15 @@
+import "../environments/constants.aqua"
+import "./prdao.constants.aqua"
+import "./prdao.products.aqua"
+import "./prdao.interfaces.aqua"
+import "../fluencelabs/builtin.aqua"
+
+func poll_poll(sub: SubscriptionV2, srv_ids: []string) -> []string:
+
+    EventFilterService srv_ids[3]
+    EnsService srv_ids[4]
+
+    filter_id <- EnsService.get_record(RINKEBY_PROVIDER, FILTER_DOMAIN, sub.name, ELASTICSEARCH_URL)
+    events <- EventFilterService.poll(filter_id, sub, CONTRACT_NETWORK_PROVIDER, ELASTICSEARCH_URL)
+
+  <- events

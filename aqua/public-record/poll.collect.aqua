@@ -1,0 +1,18 @@
+import "../environments/constants.aqua"
+import "./prdao.constants.aqua"
+import "./prdao.products.aqua"
+import "./prdao.interfaces.aqua"
+
+func poll_collect(srv_ids: []string, event_id: string, data_model: DataModel, sub: SubscriptionV2) -> IpldObject: 
+
+  on HOST_PEER_ID: 
+
+    EnsService srv_ids[4]
+    GraphService srv_ids[5]
+    HtmlService srv_ids[6]
+
+    o1 <- GraphService.get(event_id, data_model, sub, ELASTICSEARCH_URL, REMOTE_IPFS_PEER_HTTP) 
+    template_cid <- EnsService.get_record(RINKEBY_PROVIDER, WIDGET_DOMAIN, WIDGET_VERSION, ELASTICSEARCH_URL)
+    o2 <- HtmlService.render(o1, template_cid, ELASTICSEARCH_URL, REMOTE_IPFS_PEER_HTTP)
+
+  <- o2

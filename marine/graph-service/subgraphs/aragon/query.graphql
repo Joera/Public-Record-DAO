@@ -1,0 +1,30 @@
+query GraphView($id: String!) {
+    vote(id: $id) {
+      id
+      orgAddress
+      appAddress
+      creator
+      metadata
+      executed
+      executedAt
+      startDate
+      snapshotBlock
+      supportRequiredPct
+      minAcceptQuorum
+      yea
+      nay
+      votingPower
+      script
+      voteNum
+      castVotes {
+        id
+        voter {
+          id          
+          address
+        }
+        supports
+        stake
+        createdAt
+      }
+    }
+}

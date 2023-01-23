@@ -1,0 +1,43 @@
+import "../environments/constants.aqua"
+import "../public-record/prdao.interfaces.aqua"
+import "./process.aqua"
+
+
+func create_service_weird(service_name: string, config_srv_idd: string) -> string: 
+
+    on HOST_PEER_ID:
+
+        ConfigService config_srv_idd
+
+        service_config <- ConfigService.service(service_name, ELASTICSEARCH_URL)
+        service_id <- deploy_service(HOST_PEER_ID, service_config.cid, service_config.adapters, REMOTE_IPFS_PEER, service_config.facade_name, service_config.name)
+
+        if service_id == "0x": 
+            res <- ConfigService.error(service_name, HOST_PEER_ID, ELASTICSEARCH_URL)
+        else: 
+            res2 <- ConfigService.confirm(service_name, service_id, HOST_PEER_ID, ELASTICSEARCH_URL)
+
+    <- service_id
+
+func create_service(service_name: string, config_srv_id: string) -> string: 
+
+    on HOST_PEER_ID:
+
+        ConfigService config_srv_id
+
+        service_config <- ConfigService.service(service_name, ELASTICSEARCH_URL)
+        service_id <- deploy_service(HOST_PEER_ID, service_config.cid, service_config.adapters, REMOTE_IPFS_PEER, service_config.facade_name, service_config.name)
+
+        if service_id == "0x": 
+            res <- ConfigService.error(service_name, HOST_PEER_ID, ELASTICSEARCH_URL)
+        else: 
+            res2 <- ConfigService.confirm(service_name, service_id, HOST_PEER_ID, ELASTICSEARCH_URL)
+
+    <- service_id
+    
+    
+
+
+
+
+

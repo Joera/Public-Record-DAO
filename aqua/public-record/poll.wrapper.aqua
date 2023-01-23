@@ -1,0 +1,27 @@
+import ELASTICSEARCH_URL from "../environments/constants.aqua"
+import "../services/script.init.aqua"
+import "./poll.main.aqua"
+import LogService from "./prdao.interfaces.aqua"
+import Srv, Peer from "../fluencelabs/builtin.aqua"
+
+
+func poll_wrapper():
+
+  array = ["prdao_log_service","prdao_data_model_service","prdao_subscription_service","prdao_event_service","prdao_ens_service","prdao_graph_service","prdao_html_service","prdao_ipld_service","prdao_dns_service"]
+  srv_ids: *[]string
+
+  on HOST_PEER_ID:
+
+    status: ?string
+    srv_ids <- init(array)
+    
+    status <- poll_main(srv_ids!)
+    par status <- Peer.timeout(120000, "script timed out") 
+
+    LogService srv_ids!!
+    LogService.logger(status!, ELASTICSEARCH_URL)
+
+    srvList <- Srv.list()
+    for s <- srvList:  
+        if s.owner_id == HOST_PEER_ID:
+          Srv.remove(s.id) 

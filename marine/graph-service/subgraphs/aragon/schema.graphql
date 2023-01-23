@@ -1,0 +1,43 @@
+type Query {
+
+    id: ID!
+    vote: Vote!
+}
+
+
+type Vote @entity {
+  id: ID!
+  transactionHash: [Int]!
+  orgAddress: [Int]!
+  appAddress: [Int]!
+  creator: [Int]!
+  metadata: String!
+  open: Boolean!
+  executed: Boolean!
+  executedAt: Int!
+  startDate: Int!
+  snapshotBlock: Int!
+  supportRequiredPct: Int!
+  minAcceptQuorum: Int!
+  yea: Int!
+  nay: Int!
+  votingPower: Int!
+  script: [Int]!
+  voteNum: Int!
+  castVotes: [Cast!]!
+}
+
+type Cast @entity {
+  id: ID!
+  voter: Voter!
+  supports: Boolean!
+  stake: Int!
+  createdAt: Int!
+  vote: Vote! @derivedFrom(field: "casts")
+}
+
+type Voter @entity {
+  id: ID!
+  address: [Int]!
+  castVotes: [Cast!]
+}

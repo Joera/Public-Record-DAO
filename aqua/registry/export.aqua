@@ -1,0 +1,8 @@
+module Export
+import createRouteAndRegisterBlocking, createRoute, createRouteAndRegister, registerForRoute, registerForRouteNode, resolveRoute from "@fluencelabs/registry/routing.aqua"
+import Peer from "@fluencelabs/aqua-lib/builtin.aqua"
+export createRouteAndRegisterBlocking, createRoute, createRouteAndRegister, registerForRoute, registerForRouteNode, resolveRoute, timestamp_sec
+
+func timestamp_sec() -> u64:
+    result <- Peer.timestamp_sec()
+    <- result

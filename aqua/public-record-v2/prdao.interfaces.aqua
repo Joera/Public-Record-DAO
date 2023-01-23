@@ -1,0 +1,66 @@
+import "../services/types.aqua"
+import "./prdao.products.aqua"
+
+service ConfigService("service-id"):
+    service: string, string -> ServiceConfig
+    confirm: string, string, string, string -> bool
+    error: string, string, string -> bool
+
+service LogService("service-id"):
+    logger: string, string -> bool
+    int: i64, string -> bool
+
+service EventFilterService("service-id"):
+    poll: Job -> []Job
+    new: Job -> Job
+
+service EnsService("service-id"):
+    get_record: string, string, string, string -> string
+    prepare_request: string, string, string, string, string, string -> string
+    prepare_request_with_u64: string, string, string, string, u64, string -> string
+    get_tx_count: string, string, string -> i64
+    make_request: string, string, string -> JsonRpcResult
+    make_batch_request: *string, string, string -> JsonRpcResult
+
+service SignerService("service-id"):
+    initiate() -> string
+    initiate_dev() -> []string
+    from_secret: string -> []string
+    address() -> string
+    sign_tx: string, u64 -> string
+
+service QueueService("service-id"):
+    add: Job -> bool
+    get() -> *Job
+    clear() -> bool
+
+service FsService("service-id"):
+    read_file: string -> string
+
+service GraphService("service-id"):
+    get: string, DataModel, SubscriptionV2, string, string -> Job
+
+service IpldService("service-id"):
+    update: string,*Job, string, string -> string
+
+service IpnsService("service-id"):
+    get: string -> string
+    update: string, string  -> string
+    perpetuate: string -> string
+    key: string -> string
+
+service SubscriptionService("service-id"):
+    getAll: string, string, string -> []Job
+
+service DataModelService("service-id"):
+    get: u16, string -> DataModel
+
+service HtmlService("service-id"):
+    render: Job, string, string, string -> Job
+
+service IpfsService("service-id"):
+    render: Job, string, string -> Job
+
+service DnsService("service-id"):
+    update: string, string -> string
+

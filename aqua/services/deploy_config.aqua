@@ -1,0 +1,94 @@
+-- import "types.aqua"
+import "../environments/constants.aqua"
+import "../fluencelabs/builtin.aqua"
+import "../fluencelabs/ipfs.aqua"
+import "./process.aqua"
+
+
+
+func add_curl_adapter(ipfs: Multiaddr) -> Hash: 
+
+    get_result <- Ipfs.get_from(CURL_ADAPTER, ipfs) 
+    mem_page_count: ?u32 
+    mem_page_count <<- 100
+    max_heap_size: ?string
+    max_heap_size <<- "100000000"
+
+    mounted_binaries: ?Pairs
+    curl <- Pair.array("curl", "/usr/bin/curl")
+    mounted_binaries_array <- Nester.array(curl)
+    mounted_binaries <<- mounted_binaries_array
+     
+    config <- Dist.make_module_config("curl_adapter", mem_page_count, nil, nil, nil, nil, nil, mounted_binaries, nil)      
+
+    module_hash <- Dist.add_module_from_vault(get_result.path, config)
+    <- module_hash
+
+func add_elasticsearch_adapter(ipfs: Multiaddr) -> Hash: 
+
+    get_result <- Ipfs.get_from(ELASTICSEARCH_ADAPTER, ipfs) 
+    mem_page_count: ?u32 
+    mem_page_count <<- 100
+    max_heap_size: ?string
+    max_heap_size <<- "100000000"
+
+    mounted_binaries: ?Pairs
+    curl <- Pair.array("curl", "/usr/bin/curl")
+    mounted_binaries_array <- Nester.array(curl)
+    mounted_binaries <<- mounted_binaries_array
+     
+    config <- Dist.make_module_config("elasticsearch_adapter", mem_page_count, nil, nil, nil, nil, nil, mounted_binaries, nil)      
+
+    module_hash <- Dist.add_module_from_vault(get_result.path, config)
+    <- module_hash
+
+func add_blueprint_for_config(moduleName: string, modules: *string, ipfs: Multiaddr) -> string:
+    
+    dependencies: *string
+
+    adapter <- add_curl_adapter(ipfs)
+    dependency <- Op.concat_strings("hash:", adapter)
+    dependencies <<- dependency
+
+    adapter2 <- add_elasticsearch_adapter(ipfs)
+    dependency2 <- Op.concat_strings("hash:", adapter2)
+    dependencies <<- dependency2
+
+    for m <- modules:
+        prefixed_hash <- Op.concat_strings("hash:", m)
+        dependencies <<- prefixed_hash
+
+    blueprint <- Dist.make_blueprint(moduleName, dependencies)
+    blueprint_id <- Dist.add_blueprint(blueprint)
+
+    <- blueprint_id
+
+
+
+-- Download single .wasm module from IPFS and create a service from it
+func deploy_config_service(facade_cid: string, ipfs: Multiaddr) -> string:
+    
+    service_ids: *string
+    modules: *string
+
+    -- on HOST_PEER_ID: 
+
+    get_result <- Ipfs.get_from(facade_cid, ipfs) 
+
+    
+
+    if get_result.path == "":      
+        service_ids <<- "1x"
+    else:      
+        if get_result.success:
+            modules <- add_module("config_service_facade", get_result.path)
+            blueprint_id <- add_blueprint_for_config("config_service_5", modules, ipfs)
+            service_ids <- Srv.create(blueprint_id)
+        else:
+            service_ids <<- "0x"
+                  
+    <- service_ids!
+
+
+
+

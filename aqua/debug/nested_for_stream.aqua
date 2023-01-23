@@ -1,0 +1,18 @@
+
+import Op, Debug from "@fluencelabs/aqua-lib/builtin.aqua"
+
+-- service Console("run-console"):
+--     print(val: i64)
+
+func to_i_64(i: u32) -> i64:
+  <- i
+
+func iterate():
+    stream: *string
+
+ --   for o <- [1, 2, 3, 4, 5]:
+    for i <- ["a", "b", "c", "d", "e"]:
+      stream <<- i
+      array_length <- Op.array_length(stream)
+      ali64 <- to_i_64(array_length)
+      Debug.stringify(ali64) 

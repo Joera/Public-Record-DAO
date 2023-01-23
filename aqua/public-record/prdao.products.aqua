@@ -1,0 +1,81 @@
+
+
+
+data ContactInfo:
+    url: string
+
+data DataModel: 
+    name: string
+    slug: string
+    schema: string
+    domain: string
+    query: string
+    contact: ContactInfo
+
+-- data IpnsKey: 
+--     name: string
+--     public_key: string
+
+-- data Subscription:
+--     id: string
+--     client: string
+--     contact: ContactInfo
+--     data_type: string
+--     contract_type: string
+--     contract: string
+--     contract_abi: string
+--     topics: []string
+--     subgraph: string
+--     widget_domain: string
+--     widget_version: string
+--     ipld_domain: string
+--     ipld_tip: string
+
+data HTTPProviders:
+    mainnet: string
+    rinkeby: string
+    goerli : string
+    polygon: string
+
+data SubscriptionV2: 
+    name: string
+    topics: []string
+    network: string
+    contract: string
+    services: string
+
+data IpldObject: 
+    item: string
+    item_count: string
+    data_model: DataModel
+    subscription: SubscriptionV2 
+    json: string    
+    cbor: string 
+    html: string
+    embed: string
+
+data PublicMetadata: 
+    organisationId: string
+    contract: string
+  --  contact: ContactInfo
+    path: []string
+    domain: string
+
+data IpfsLink:
+    name: string
+    tsize: i32
+    hash: string 
+
+data PublicVoteObject:
+    metadata: PublicMetadata
+    json: IpfsLink
+    cbor: IpfsLink
+    widget: IpfsLink
+
+data PublicDaoObject:
+    name: string
+    id: string
+    contact: ContactInfo
+    votes: []IpfsLink
+
+

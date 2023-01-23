@@ -1,0 +1,18 @@
+import Srv, Dist, Script, Blueprint from "@fluencelabs/aqua-lib/builtin"
+import  "@fluencelabs/aqua-ipfs/ipfs"
+
+const REMOTE_IPFS_PEER = "/ip4/64.227.70.116/tcp/5001"
+
+-- deploy script that creates a service 
+
+func list_blueprints() -> []Blueprint: 
+
+    on HOST_PEER_ID:
+
+        bprints <- Dist.list_blueprints()
+
+
+    <- bprints
+
+
+

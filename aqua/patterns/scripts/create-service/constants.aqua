@@ -1,0 +1,4 @@
+
+const REMOTE_IPFS_PEER = "/ip4/64.227.70.116/tcp/5001"
+const CURL_ADAPTER_CID = "QmbKBnJcwAZo5GvGn6yrkGnv2tvg1HLvSctPmCtwHbun3s"
+-- const ELASTICSEARCH_ADAPTER = "QmZ9bMpUUo8fGVRs4dNTMiywrCxMzoPjrAbEo46YtUuuvi"

@@ -1,0 +1,40 @@
+import Op, Dist  from "@fluencelabs/aqua-lib/builtin"
+import "@fluencelabs/aqua-ipfs/ipfs"
+import CURL_ADAPTER_CID, REMOTE_IPFS_PEER from "./constants"
+
+alias Pairs : [][]string
+
+service Pair("op"):
+    -- function that wraps two strings in an array
+    array(s1: string, s2: string) -> []string
+
+service Nester("op"):
+    -- function that wraps an array of strings in an array
+    array(s: []string) -> [][]string
+
+    
+
+func add_curl_adapter() -> string: 
+
+    get_result <- Ipfs.get_from(CURL_ADAPTER_CID, REMOTE_IPFS_PEER) 
+    mem_page_count: ?u32
+    mem_page_count <<- 100
+    mounted_binaries: ?Pairs
+
+    curl <- Pair.array("curl", "/usr/bin/curl")
+    mounted_binaries_array <- Nester.array(curl)
+    mounted_binaries <<- mounted_binaries_array
+     
+    config <- Dist.make_module_config("curl_adapter", mem_page_count, nil, nil, nil, nil, nil, mounted_binaries, nil)      
+
+    mod <- Dist.add_module_from_vault(get_result.path, config)
+    <- Op.concat_strings("hash:", mod)
+
+func add_facade_module(cid: string, service_name: string) -> string:
+
+    facade_name <- Op.concat_strings(service_name, "_facade")
+    facade_module <- Ipfs.get_from(cid, REMOTE_IPFS_PEER)
+    conf <- Dist.default_module_config(facade_name)
+    mod <- Dist.add_module_from_vault(facade_module.path, conf)
+    <- Op.concat_strings("hash:", mod)
+

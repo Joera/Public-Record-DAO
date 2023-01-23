@@ -1,0 +1,29 @@
+import ELASTICSEARCH_URL, HOPPING_SCRIPT from "../environments/constants.aqua"
+import Srv, Op, Peer from "../fluencelabs/builtin.aqua"
+import resolveRoute from "@fluencelabs/registry/routing.aqua"
+import Record from "@fluencelabs/registry/registry.aqua"
+import script_once from "../maintenance/scripts.aqua"
+import LogService from "../public-record/prdao.interfaces.aqua"
+
+func hopper_hop(srv_ids: []string ) -> string :
+
+  version = "0.0.1"
+  result: *string
+  
+
+  on HOST_PEER_ID:
+
+    subs <- resolveRoute("dao212D3KooWQ5wfAfJoe5wEsUd1L676HGqxeRp376qy2wrR4c3NhHuX",1)
+
+    for sub <- subs: 
+
+        LogService srv_ids!
+        msg <- Op.concat_strings("selected node", sub.peer_id)
+        LogService.logger(msg, ELASTICSEARCH_URL)
+        Peer.timeout(10000,"chillin")  -- ff 10 sec chillen 
+        -- run script from ipfs 
+        script_once(HOPPING_SCRIPT, sub.peer_id)
+        -- 
+        result <- Op.concat_strings("hopping to ", sub.peer_id)
+
+  <- result!

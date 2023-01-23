@@ -1,0 +1,21 @@
+import "../environments/constants.aqua"
+import "../services/types.aqua"
+import "../fluencelabs/builtin.aqua"
+import "../services/process.aqua"
+import "../fluencelabs/ipfs.aqua"
+import "../services/deploy_config.aqua"
+import "../services/create.aqua"
+import "../services/types.aqua"
+import "../public-record/prdao.interfaces.aqua"
+
+
+func queue_deploy(node: string) -> string:
+
+    on node:
+
+        config_service_id <- deploy_config_service(CONFIG_SRV, REMOTE_IPFS_PEER)
+
+        service_id <- create_service("prdao_queue_service", config_service_id)
+            
+    <- service_id
+
