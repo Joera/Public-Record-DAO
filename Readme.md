@@ -17,6 +17,16 @@ Below you may find a schematic presentation of the two scripts running on the Fl
    
 
 
+* The filter script (to the left) creates event filters (listeners) for each of the DAO's that subscribe to the Public Record DAO
+* The poll script (to the right) uses the event filters to capture events on the blockchain that signal that a vote has been cast.
+* When a vote event is captured, the id of the vote is used to collect the latest state of the vote from the subgraph. 
+* With the latest data an html/css/js widget is created.
+* The cid for the head of the data collection is retrieved from a text filed in an ens resolver contract.
+* The data collection tree is rebuild from bottom up with the new data and the updated widget and published on ipfs.
+* The dnslink for public-record.org is updated with the cid for the new head of the data collection.
+* The cid for the new head of the data collection is written to the ens resolver contract.
+
+              
 
 
 
