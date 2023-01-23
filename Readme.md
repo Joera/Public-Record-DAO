@@ -27,7 +27,7 @@ Below you may find a schematic presentation of the two scripts running on the Fl
 * The dnslink for public-record.org is updated with the cid for the new head of the data collection.
 * The cid for the new head of the data collection is written to the ens resolver contract.
 
-              
+The head of an IPLD data structure may or may not still be available at bafybeif2cc3pfptcb7ophs35t24t74ye4lc7bs7hohmkqqi2k5y3lm7dja              
 
 
 
