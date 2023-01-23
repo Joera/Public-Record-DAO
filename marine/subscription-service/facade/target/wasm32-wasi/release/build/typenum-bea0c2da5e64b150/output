@@ -1,2 +1,0 @@
-cargo:rustc-env=TYPENUM_BUILD_CONSTS=/home/joera/Documents/chronicles/fluence/public-record/subscription-service/facade/target/wasm32-wasi/release/build/typenum-bea0c2da5e64b150/out/consts.rs
-cargo:rustc-env=TYPENUM_BUILD_OP=/home/joera/Documents/chronicles/fluence/public-record/subscription-service/facade/target/wasm32-wasi/release/build/typenum-bea0c2da5e64b150/out/op.rs

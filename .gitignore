@@ -4,3 +4,7 @@
 **/**.bak
 **/**.bk
 
+aqua/constants.aqua
+
+**/facade/target/*
+**/artifacts/*
