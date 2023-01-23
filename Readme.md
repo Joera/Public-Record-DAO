@@ -15,6 +15,7 @@ P2P networks are used exclusively to maximise trustlessnes.
      
 Below you may find a schematic presentation of the two scripts running on the Fluence network and the connections they make with the other P2P networks:
    
+   ![Schema](./public-record-schema.svg)
 
 
 * The filter script (to the left) creates event filters (listeners) for each of the DAO's that subscribe to the Public Record DAO
