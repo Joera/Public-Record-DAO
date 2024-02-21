@@ -1,7 +1,6 @@
 
 
-This project was intended as a proof of concept to show it is possible to gather and store blockchain data in a trustless mannerfor future analysis. I was able to convince myself, but it turned out to be too complex an endeavour to maintain a working (d)application. Too many moving parts. If you are interested, do check out [Transport Union](https://github.com/orgs/Transport-Union/repositories) where i try out similar concepts. 
-
+This project was intended as a proof of concept to show it is possible to gather and store blockchain data in a trustless mannerfor future analysis. I was able to convince myself, but it turned out to be too complex an endeavour to maintain a working (d)application.
 
 ## Architecture
 
